@@ -20,7 +20,7 @@ export async function GET() {
       }}
     >
       <div style={{ display: "flex", fontSize: 20, letterSpacing: 4 }}>
-        INDEPENDENT WEB STUDIO · SINGAPORE
+        VRGIL WEB SOLUTIONS
       </div>
       <div
         style={{
@@ -31,8 +31,8 @@ export async function GET() {
           letterSpacing: -3,
         }}
       >
-        <span>We build websites.</span>
-        <span style={{ color: "#c7d9c7" }}>You focus on your business.</span>
+        <span>Built for</span>
+        <span style={{ color: "#c7d9c7" }}>Businesses.</span>
       </div>
       <div
         style={{

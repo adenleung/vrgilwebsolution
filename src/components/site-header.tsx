@@ -22,7 +22,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
       if (open && !header.current?.contains(event.target as Node))
         setOpen(false);
     }
-    const media = window.matchMedia("(min-width: 960px)");
+    const media = window.matchMedia("(min-width: 1151px)");
     function resized() {
       if (media.matches) setOpen(false);
     }
@@ -41,7 +41,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
         <Link
           className="brand-link"
           href={href("home")}
-          aria-label="VRGIL home"
+          aria-label="VRGIL Web Solutions home"
           onClick={() => setOpen(false)}
         >
           <Brand />

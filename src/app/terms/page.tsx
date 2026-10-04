@@ -14,7 +14,6 @@ export default function Terms() {
       </a>
       <SiteHeader />
       <main id="main" className="container document-page">
-        <span className="eyebrow">VRGIL / Website information</span>
         <h1>Website terms</h1>
         <p>
           This website introduces the freelance website design and development

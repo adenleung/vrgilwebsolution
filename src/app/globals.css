@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   --paper: #f8f7f4;
   --surface: #f0f0eb;
@@ -15,6 +11,10 @@
   --space: clamp(72px, 8vw, 116px);
   --header: 82px;
   color-scheme: light;
+  --type-small: 14px;
+  --type-body: 16px;
+  --type-base: 17px;
+  --type-lead: 18px;
 }
 * {
   box-sizing: border-box;
@@ -28,7 +28,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans), Arial, sans-serif;
-  font-size: 15px;
+  font-size: var(--type-base);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
@@ -132,7 +132,7 @@ summary {
 }
 .eyebrow {
   display: block;
-  font-size: 10px;
+  font-size: var(--type-small);
   line-height: 1.5;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -140,19 +140,16 @@ summary {
   color: var(--green);
 }
 .section-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 50px;
-  align-items: flex-end;
   margin-bottom: 48px;
+  display: block;
 }
 .section-heading h2 {
-  margin-top: 18px;
+  margin-top: 0;
 }
 .section-heading > p {
-  max-width: 310px;
-  font-size: 14px;
-  padding-bottom: 4px;
+  max-width: 700px;
+  font-size: var(--type-body);
+  margin-top: 18px;
 }
 .button {
   display: inline-flex;
@@ -165,7 +162,7 @@ summary {
   border-radius: 5px;
   background: var(--green);
   color: var(--white);
-  font-size: 12px;
+  font-size: var(--type-small);
   font-weight: 600;
   line-height: 1.5;
   transition:
@@ -190,7 +187,7 @@ summary {
 .button-small {
   min-height: 42px;
   padding: 10px 16px;
-  font-size: 11px;
+  font-size: var(--type-small);
   gap: 15px;
 }
 .button-light {
@@ -206,7 +203,7 @@ summary {
   display: inline-flex;
   align-items: center;
   gap: 15px;
-  font-size: 12px;
+  font-size: var(--type-small);
   font-weight: 600;
   min-height: 44px;
 }
@@ -291,7 +288,7 @@ summary {
   margin-left: auto;
 }
 .main-navigation a {
-  font-size: 11px;
+  font-size: var(--type-body);
   min-height: 44px;
   display: flex;
   align-items: center;
@@ -319,30 +316,19 @@ summary {
 
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 52px;
   align-items: center;
-  padding-block: 70px 76px;
-  min-height: 680px;
+  grid-template-columns: 0.98fr 1.02fr;
+  padding-block: 58px 64px;
+  min-height: 600px;
 }
 .hero-copy {
   padding-block: 10px;
 }
-.hero-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 9px;
-}
-.small-rule {
-  width: 23px;
-  height: 1px;
-  background: var(--green);
-}
 .hero h1 {
   font-size: clamp(52px, 5.35vw, 77px);
   line-height: 1.04;
-  margin: 27px 0 24px;
+  margin: 0 0 24px;
   letter-spacing: -0.055em;
 }
 .hero h1 em {
@@ -350,48 +336,22 @@ summary {
   white-space: nowrap;
 }
 .hero-copy > p {
-  max-width: 390px;
-  font-size: 15px;
   line-height: 1.8;
+  max-width: 450px;
+  font-size: var(--type-lead);
 }
 .hero .button-row {
   margin-top: 30px;
 }
-.hero-note {
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px 12px;
-  font-size: 10px;
-  line-height: 1.8;
-  color: var(--muted);
-  max-width: 385px;
-}
-.hero-note span:not(:first-child):before {
-  content: "·";
-  margin-right: 12px;
-  color: var(--green);
-}
 .hero-visual {
   position: relative;
   min-width: 0;
-  background: #e9ece5;
-  padding: 25px 24px 19px;
-  border-radius: 10px;
-}
-.hero-visual-label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #485a50;
-  font-size: 10px;
-  margin-bottom: 38px;
 }
 .hero-project {
   display: block;
   position: relative;
   margin-bottom: 50px;
-  padding-right: 5px;
+  padding-right: 8px;
 }
 .browser-frame {
   overflow: hidden;
@@ -459,55 +419,12 @@ summary {
   padding-top: 18px;
 }
 .hero-caption .eyebrow {
-  font-size: 8px;
+  font-size: var(--type-small);
   margin-bottom: 4px;
 }
 .hero-caption strong {
-  font-size: 14px;
   font-weight: 500;
-}
-.round-link {
-  height: 44px;
-  width: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  border: 1px solid #bec9bd;
-  transition: background 0.2s;
-}
-.round-link:hover {
-  background: #d7dfd3;
-}
-.offering-strip {
-  border-block: 1px solid var(--line);
-  padding: 28px 0;
-}
-.offering-strip > .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 25px;
-}
-.offering-strip > .container > span {
-  font-size: 17px;
-  line-height: 1.5;
-  letter-spacing: -0.025em;
-}
-.offering-strip strong {
-  font-weight: 500;
-  color: var(--green);
-}
-.offering-strip .container > div {
-  display: flex;
-  gap: 38px;
-  font-size: 10px;
-  color: var(--muted);
-}
-.offering-strip .container > div > span:before {
-  content: "✦";
-  font-size: 10px;
-  margin-right: 10px;
-  color: var(--green);
+  font-size: var(--type-body);
 }
 
 .business-problem {
@@ -517,13 +434,13 @@ summary {
 }
 .problem-intro h2 {
   margin-top: 18px;
-  max-width: 500px;
+  max-width: none;
   font-size: clamp(35px, 3.25vw, 46px);
 }
 .problem-intro p {
   margin-block: 25px 22px;
   max-width: 400px;
-  font-size: 14px;
+  font-size: var(--type-body);
 }
 .problem-list > div {
   display: flex;
@@ -534,17 +451,12 @@ summary {
 .problem-list > div:first-child {
   padding-top: 0;
 }
-.item-number {
-  font-size: 10px;
-  color: var(--green);
-  margin-top: 4px;
-}
 .problem-list h3 {
-  font-size: 16px;
+  font-size: 20px;
   letter-spacing: -0.025em;
 }
 .problem-list p {
-  font-size: 12px;
+  font-size: var(--type-body);
   line-height: 1.7;
   margin-top: 8px;
   max-width: 330px;
@@ -570,16 +482,12 @@ summary {
   color: var(--green);
   margin-bottom: 30px;
 }
-.benefit-grid .eyebrow {
-  font-size: 9px;
-  margin-bottom: 13px;
-}
 .benefit-grid h3 {
   font-size: 23px;
   margin-bottom: 13px;
 }
 .benefit-grid p {
-  font-size: 13px;
+  font-size: var(--type-body);
   line-height: 1.8;
 }
 .service-grid {
@@ -602,12 +510,12 @@ summary {
   margin-bottom: 32px;
 }
 .service-grid h3 {
-  font-size: 17px;
+  font-size: 20px;
   margin-bottom: 13px;
   line-height: 1.3;
 }
 .service-grid p {
-  font-size: 12px;
+  font-size: var(--type-body);
   line-height: 1.8;
 }
 .service-note {
@@ -616,7 +524,7 @@ summary {
   justify-content: space-between;
   gap: 25px;
   margin-top: 25px;
-  font-size: 11px;
+  font-size: var(--type-small);
   color: var(--muted);
 }
 .service-note > span {
@@ -660,14 +568,6 @@ summary {
 .work-preview:hover .browser-frame {
   transform: translateY(-4px);
 }
-.work-preview-caption {
-  display: block;
-  color: #4d5f4c;
-  font-size: 10px;
-  margin-top: 20px;
-  text-align: center;
-  letter-spacing: 0.035em;
-}
 .work-copy h3 {
   font-family: var(--font-serif), Georgia, serif;
   font-size: 44px;
@@ -676,7 +576,7 @@ summary {
 }
 .work-copy p {
   color: #cad5cb;
-  font-size: 14px;
+  font-size: var(--type-body);
   line-height: 1.85;
 }
 .feature-tags {
@@ -689,8 +589,8 @@ summary {
   border: 1px solid #ffffff30;
   border-radius: 3px;
   color: #d3dfd3;
-  font-size: 9px;
-  padding: 5px 8px;
+  font-size: var(--type-small);
+  padding: 7px 10px;
 }
 .work-copy > .text-link {
   margin-top: 12px;
@@ -713,22 +613,13 @@ summary {
   border-color: #b0c3b0;
   background: #edf1e8;
 }
-.pricing-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.package-index {
-  font-size: 10px;
-  color: var(--muted);
-}
 .pricing-card h3 {
   font-size: 31px;
   margin: 26px 0 14px;
 }
 .package-description {
   max-width: 370px;
-  font-size: 13px;
+  font-size: var(--type-body);
   line-height: 1.8;
   min-height: 47px;
 }
@@ -746,7 +637,7 @@ summary {
   margin-right: 6px;
 }
 .package-price small {
-  font-size: 9px;
+  font-size: var(--type-small);
   color: var(--muted);
   letter-spacing: 0;
   line-height: 1.65;
@@ -763,14 +654,14 @@ summary {
   gap: 15px;
   border-block: 1px solid var(--line);
   padding: 18px 0;
-  font-size: 12px;
+  font-size: var(--type-body);
 }
 .package-scope strong {
   font-weight: 600;
 }
 .package-scope > span {
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--type-body);
 }
 .package-features {
   display: grid;
@@ -782,7 +673,7 @@ summary {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 11px;
+  font-size: var(--type-body);
   line-height: 1.6;
 }
 .package-features svg {
@@ -792,7 +683,7 @@ summary {
   margin-top: 2px;
 }
 .package-examples {
-  font-size: 11px;
+  font-size: var(--type-body);
   margin-bottom: 20px;
 }
 .package-examples summary {
@@ -806,7 +697,7 @@ summary {
 }
 .package-examples p {
   padding-top: 13px;
-  font-size: 11px;
+  font-size: var(--type-body);
 }
 .delivery {
   display: flex;
@@ -814,7 +705,7 @@ summary {
   gap: 12px;
   border-top: 1px solid var(--line);
   padding-top: 20px;
-  font-size: 10px;
+  font-size: var(--type-small);
   margin-top: auto;
 }
 .delivery strong {
@@ -830,7 +721,7 @@ summary {
   margin-top: 22px;
 }
 .pricing-notes p {
-  font-size: 10px;
+  font-size: var(--type-body);
   line-height: 1.85;
 }
 .addons {
@@ -846,13 +737,13 @@ summary {
   margin: 20px 0;
 }
 .addons > div > p {
-  font-size: 13px;
+  font-size: var(--type-body);
   max-width: 300px;
 }
 .addons table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: var(--type-small);
 }
 .addons th {
   font-weight: 400;
@@ -868,7 +759,7 @@ summary {
   text-align: right;
 }
 .addons thead th {
-  font-size: 9px;
+  font-size: var(--type-small);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
@@ -891,6 +782,8 @@ summary {
   position: relative;
   padding-right: 22px;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 .journey-step:before {
   content: "";
@@ -915,7 +808,7 @@ summary {
   border: 1px solid #b2c2b1;
   border-radius: 50%;
   color: var(--green);
-  font-size: 12px;
+  font-size: var(--type-small);
   transition:
     background 0.45s,
     color 0.45s;
@@ -927,24 +820,23 @@ summary {
 }
 .journey-content {
   margin-top: 29px;
-}
-.journey-content .eyebrow {
-  font-size: 8px;
-  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .journey h3 {
-  font-size: 19px;
+  font-size: 20px;
   line-height: 1.22;
   margin-bottom: 15px;
-  min-height: 46px;
+  min-height: 50px;
 }
 .journey p {
-  font-size: 11px;
+  font-size: var(--type-body);
   line-height: 1.85;
-  min-height: 123px;
+  min-height: 0;
+  flex: 1;
 }
 .journey-milestone {
-  font-size: 9px;
   display: flex;
   gap: 6px;
   align-items: flex-start;
@@ -952,6 +844,8 @@ summary {
   margin-top: 20px;
   border-top: 1px solid var(--line);
   padding-top: 16px;
+  font-size: var(--type-small);
+  line-height: 1.6;
 }
 .process-footnote {
   display: flex;
@@ -960,7 +854,7 @@ summary {
   gap: 25px;
   border-top: 1px solid #cbd3c6;
   padding-top: 22px;
-  font-size: 11px;
+  font-size: var(--type-small);
   color: var(--muted);
 }
 .process-footnote a {
@@ -976,7 +870,7 @@ summary {
   margin-top: 20px;
 }
 .why-heading > p {
-  font-size: 14px;
+  font-size: var(--type-body);
   margin-top: 25px;
   max-width: 370px;
 }
@@ -985,12 +879,12 @@ summary {
   border-top: 1px solid var(--line);
   padding-top: 25px;
   margin-top: 35px;
-  font-size: 12px;
+  font-size: var(--type-small);
   font-weight: 600;
 }
 .studio-signature > span {
   display: block;
-  font-size: 10px;
+  font-size: var(--type-small);
   color: var(--muted);
   font-weight: 400;
   margin-top: 4px;
@@ -1010,12 +904,12 @@ summary {
   margin-bottom: 15px;
 }
 .reason-grid h3 {
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.4;
   margin-bottom: 9px;
 }
 .reason-grid p {
-  font-size: 11px;
+  font-size: var(--type-body);
   line-height: 1.8;
 }
 .faq-section {
@@ -1031,7 +925,7 @@ summary {
   margin-top: 20px;
 }
 .faq-layout > div:first-child p {
-  font-size: 13px;
+  font-size: var(--type-body);
   margin-block: 25px 17px;
   max-width: 300px;
 }
@@ -1050,18 +944,14 @@ summary {
   display: flex;
   align-items: center;
   gap: 20px;
-  font-size: 13px;
   font-weight: 500;
   min-height: 70px;
   padding-block: 20px;
   line-height: 1.6;
+  font-size: var(--type-base);
 }
 .faq-list summary::-webkit-details-marker {
   display: none;
-}
-.faq-number {
-  font-size: 9px;
-  color: var(--green);
 }
 .faq-plus {
   margin-left: auto;
@@ -1075,8 +965,8 @@ summary {
   transform: rotate(45deg);
 }
 .faq-list p {
-  font-size: 12px;
-  margin: 0 30px 24px 33px;
+  font-size: var(--type-body);
+  margin: 0 30px 24px 0;
   line-height: 1.9;
 }
 
@@ -1098,7 +988,7 @@ summary {
   margin: 22px 0 26px;
 }
 .contact-copy > p {
-  font-size: 14px;
+  font-size: var(--type-body);
   max-width: 350px;
 }
 .contact-methods {
@@ -1123,16 +1013,16 @@ summary {
 .contact-methods small {
   display: block;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--type-small);
   margin-bottom: 3px;
 }
 .contact-methods strong {
-  font-size: 13px;
+  font-size: var(--type-body);
   font-weight: 500;
   overflow-wrap: anywhere;
 }
 .contact-copy .contact-small {
-  font-size: 11px;
+  font-size: var(--type-small);
   max-width: 320px;
 }
 .quote-form-wrap {
@@ -1150,7 +1040,7 @@ summary {
   margin: 12px 0;
 }
 .form-heading p {
-  font-size: 12px;
+  font-size: var(--type-body);
 }
 .form-grid {
   display: grid;
@@ -1158,15 +1048,15 @@ summary {
   gap: 20px 17px;
 }
 .form-grid label {
-  font-size: 10px;
   font-weight: 600;
   line-height: 1.5;
   min-width: 0;
+  font-size: var(--type-small);
 }
 .form-grid label > span {
-  font-size: 9px;
   color: var(--muted);
   font-weight: 400;
+  font-size: 13px;
 }
 .form-grid input,
 .form-grid select,
@@ -1179,10 +1069,10 @@ summary {
   border: 1px solid #cdd3c8;
   background: #fafbf7;
   border-radius: 4px;
-  font-size: 12px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--ink);
+  font-size: var(--type-body);
 }
 .form-grid input,
 .form-grid select {
@@ -1205,7 +1095,7 @@ summary {
 }
 .form-extras {
   margin-top: 22px;
-  font-size: 11px;
+  font-size: var(--type-small);
   border-block: 1px solid var(--line);
 }
 .form-extras summary {
@@ -1234,11 +1124,11 @@ summary {
 .form-extras small {
   margin-left: auto;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--type-small);
 }
 .form-note {
   margin-top: 20px;
-  font-size: 10px;
+  font-size: var(--type-small);
   line-height: 1.85;
 }
 .form-note a {
@@ -1251,7 +1141,7 @@ summary {
   justify-content: space-between;
 }
 .form-privacy {
-  font-size: 9px;
+  font-size: var(--type-small);
   margin-top: 14px;
   line-height: 1.8;
 }
@@ -1263,7 +1153,7 @@ summary {
   margin: 16px 0;
 }
 .enquiry-review > p {
-  font-size: 12px;
+  font-size: var(--type-body);
 }
 .enquiry-review pre {
   margin-block: 24px;
@@ -1284,7 +1174,7 @@ summary {
   flex-wrap: wrap;
 }
 .review-actions .button {
-  font-size: 11px;
+  font-size: var(--type-small);
   gap: 8px;
   flex: 1 0 auto;
 }
@@ -1302,7 +1192,7 @@ summary {
   background: transparent;
   border: 0;
   padding: 0;
-  font-size: 11px;
+  font-size: var(--type-small);
   color: var(--green);
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -1324,7 +1214,7 @@ summary {
   padding-bottom: 48px;
 }
 .footer-top p {
-  font-size: 18px;
+  font-size: var(--type-lead);
   line-height: 1.4;
   color: #d4ded2;
   margin-top: 22px;
@@ -1332,7 +1222,7 @@ summary {
 }
 .footer-description {
   display: block;
-  font-size: 10px;
+  font-size: var(--type-body);
   color: #b4c3b3;
   margin-top: 14px;
 }
@@ -1342,7 +1232,7 @@ summary {
   gap: 2px;
 }
 .footer-top nav a {
-  font-size: 12px;
+  font-size: var(--type-small);
   display: flex;
   align-items: center;
   min-height: 40px;
@@ -1352,7 +1242,7 @@ summary {
   display: block;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-size: 9px;
+  font-size: var(--type-small);
   color: #b4c3b3;
   margin-bottom: 14px;
 }
@@ -1362,7 +1252,7 @@ summary {
   justify-content: space-between;
   gap: 12px;
   min-height: 44px;
-  font-size: 11px;
+  font-size: var(--type-small);
   color: #d4ded2;
   overflow-wrap: anywhere;
 }
@@ -1373,7 +1263,7 @@ summary {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  font-size: 9px;
+  font-size: var(--type-small);
   color: #b4c3b3;
 }
 .footer-bottom > div {
@@ -1406,10 +1296,10 @@ summary {
 }
 .case-intro > p {
   max-width: 580px;
-  font-size: 17px;
+  font-size: var(--type-base);
 }
 .case-type {
-  font-size: 11px;
+  font-size: var(--type-small);
   border-top: 1px solid var(--line);
   padding-top: 15px;
   min-width: 200px;
@@ -1417,7 +1307,7 @@ summary {
 .case-type span {
   display: block;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--type-small);
   margin-bottom: 5px;
 }
 .case-visual {
@@ -1445,7 +1335,7 @@ summary {
   margin: 18px 0 22px;
 }
 .case-details p {
-  font-size: 14px;
+  font-size: var(--type-body);
   line-height: 1.9;
 }
 .case-feature-list {
@@ -1459,7 +1349,7 @@ summary {
   display: flex;
   gap: 10px;
   align-items: center;
-  font-size: 12px;
+  font-size: var(--type-small);
 }
 .case-feature-list svg {
   color: var(--green);
@@ -1489,7 +1379,7 @@ summary {
   margin: 35px 0 14px;
 }
 .document-page p {
-  font-size: 14px;
+  font-size: var(--type-body);
   line-height: 1.9;
   margin-bottom: 16px;
 }
@@ -1509,6 +1399,73 @@ summary {
   margin-bottom: 30px;
 }
 
+.hero-project-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  min-height: 44px;
+  width: 100%;
+}
+
+.hero-project-link span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--type-small);
+  color: var(--green);
+}
+
+.work-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.work-actions .button {
+  flex: 1 1 165px;
+  min-height: 52px;
+  padding-inline: 16px;
+  gap: 12px;
+}
+
+.button-work-outline {
+  color: var(--paper);
+  background: transparent;
+  border-color: #b4c9b5;
+}
+
+.button-work-outline:hover {
+  background: #ffffff12;
+  border-color: var(--paper);
+}
+
+.work-copy .project-industry {
+  font-size: var(--type-small);
+  color: #b4c9b5;
+}
+
+.quote-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.quote-form fieldset:disabled {
+  opacity: 0.65;
+}
+
+.quote-form noscript p {
+  margin-top: 20px;
+  font-size: var(--type-body);
+}
+
+.quote-form noscript a {
+  text-decoration: underline;
+}
+
 @media (min-width: 1441px) {
   .hero {
     gap: 65px;
@@ -1523,12 +1480,21 @@ summary {
   }
   .main-navigation {
     gap: 18px;
+    display: none;
+    position: absolute;
+    top: var(--header);
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 15px 30px 22px;
+    box-shadow: 0 15px 20px #2024200a;
   }
   .nav-shell {
     gap: 18px;
   }
   .nav-quote {
-    margin-left: 0;
+    margin-left: auto;
   }
   .hero {
     gap: 32px;
@@ -1541,16 +1507,16 @@ summary {
     font-size: 1.04em;
   }
   .hero-visual {
-    padding-inline: 20px;
   }
   .business-problem {
     gap: 65px;
   }
   .section-heading {
-    gap: 30px;
+    display: block;
   }
   .section-heading > p {
-    max-width: 270px;
+    max-width: 700px;
+    margin-top: 18px;
   }
   .benefit-grid {
     gap: 20px;
@@ -1587,15 +1553,60 @@ summary {
   }
   .journey-step {
     padding-right: 15px;
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    gap: 25px;
+    padding: 0 0 35px;
   }
   .journey h3 {
-    font-size: 17px;
+    min-height: 0;
+    font-size: 24px;
+    margin-bottom: 12px;
   }
   .journey p {
-    min-height: 140px;
+    font-size: var(--type-body);
+    min-height: 0;
+    max-width: 500px;
   }
   .footer-top {
     gap: 35px;
+  }
+  .main-navigation.is-open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .main-navigation a {
+    font-size: var(--type-body);
+    min-height: 47px;
+    border-bottom: 1px solid var(--line);
+  }
+  .menu-toggle {
+    display: flex;
+  }
+  .journey {
+    grid-template-columns: 1fr;
+    max-width: 650px;
+    margin: 45px auto;
+  }
+  .journey-step:before {
+    height: auto;
+    width: 1px;
+    top: 46px;
+    bottom: 0;
+    left: 23px;
+    right: auto;
+  }
+  .journey-content {
+    margin-top: 0;
+  }
+  .journey-milestone {
+    font-size: var(--type-small);
+    margin-top: 15px;
+  }
+  .journey-step:last-child {
+    padding-bottom: 0;
   }
 }
 @media (max-width: 959px) {
@@ -1607,34 +1618,6 @@ summary {
   }
   .nav-shell {
     gap: 15px;
-  }
-  .main-navigation {
-    display: none;
-    position: absolute;
-    top: var(--header);
-    left: 0;
-    right: 0;
-    background: var(--paper);
-    border-bottom: 1px solid var(--line);
-    padding: 15px 30px 22px;
-    box-shadow: 0 15px 20px #2024200a;
-  }
-  .main-navigation.is-open {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-  }
-  .main-navigation a {
-    font-size: 14px;
-    min-height: 47px;
-    border-bottom: 1px solid var(--line);
-  }
-  .nav-quote {
-    margin-left: auto;
-  }
-  .menu-toggle {
-    display: flex;
   }
   .hero {
     grid-template-columns: 1fr 1fr;
@@ -1649,41 +1632,22 @@ summary {
     white-space: normal;
   }
   .hero-copy > p {
-    font-size: 13px;
-  }
-  .hero-eyebrow {
-    font-size: 8px;
-    gap: 6px;
-  }
-  .hero-eyebrow .small-rule {
-    width: 14px;
+    font-size: var(--type-body);
   }
   .hero .button-row {
     gap: 10px;
   }
   .hero .button {
-    font-size: 11px;
+    font-size: var(--type-small);
     padding: 12px 15px;
   }
   .hero .text-link {
-    font-size: 11px;
+    font-size: var(--type-small);
   }
   .hero-visual {
-    padding-inline: 16px;
-  }
-  .hero-visual-label {
-    font-size: 8px;
-    margin-bottom: 28px;
   }
   .hero-project {
     margin-bottom: 42px;
-  }
-  .hero-note {
-    font-size: 9px;
-    margin-top: 23px;
-  }
-  .offering-strip .container > div {
-    gap: 18px;
   }
   .business-problem {
     gap: 40px;
@@ -1695,8 +1659,9 @@ summary {
     font-size: 38px;
   }
   .section-heading > p {
-    max-width: 250px;
-    font-size: 12px;
+    max-width: 700px;
+    font-size: var(--type-body);
+    margin-top: 18px;
   }
   .benefit-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1756,61 +1721,19 @@ summary {
     margin-left: 12px;
   }
   .package-scope {
-    font-size: 11px;
+    font-size: var(--type-body);
     align-items: flex-start;
   }
   .package-scope > span {
-    font-size: 10px;
+    font-size: var(--type-body);
   }
   .delivery {
-    font-size: 9px;
+    font-size: var(--type-small);
     flex-direction: column;
     gap: 4px;
   }
   .addons {
     gap: 50px;
-  }
-  .journey {
-    grid-template-columns: 1fr;
-    max-width: 650px;
-    margin: 45px auto;
-  }
-  .journey-step {
-    display: grid;
-    grid-template-columns: 46px 1fr;
-    gap: 25px;
-    padding: 0 0 35px;
-  }
-  .journey-step:before {
-    height: auto;
-    width: 1px;
-    top: 46px;
-    bottom: 0;
-    left: 23px;
-    right: auto;
-  }
-  .journey-content {
-    margin-top: 0;
-  }
-  .journey-content .eyebrow {
-    margin-bottom: 8px;
-  }
-  .journey h3 {
-    min-height: 0;
-    font-size: 24px;
-    margin-bottom: 12px;
-  }
-  .journey p {
-    font-size: 13px;
-    min-height: 0;
-    max-width: 500px;
-  }
-  .journey-milestone {
-    font-size: 10px;
-    margin-top: 15px;
-  }
-  .journey-step:last-child {
-    padding-bottom: 0;
   }
   .why-section {
     grid-template-columns: 0.85fr 1.15fr;
@@ -1820,7 +1743,7 @@ summary {
     font-size: 37px;
   }
   .why-heading > p {
-    font-size: 12px;
+    font-size: var(--type-body);
   }
   .reason-grid {
     gap: 25px;
@@ -1834,7 +1757,7 @@ summary {
   }
   .faq-list summary {
     gap: 15px;
-    font-size: 12px;
+    font-size: var(--type-body);
   }
   .contact-layout {
     gap: 35px;
@@ -1844,13 +1767,13 @@ summary {
     font-size: 40px;
   }
   .contact-copy > p {
-    font-size: 12px;
+    font-size: var(--type-body);
   }
   .contact-methods a {
     gap: 12px;
   }
   .contact-methods strong {
-    font-size: 11px;
+    font-size: var(--type-body);
   }
   .quote-form-wrap {
     padding: 28px 23px;
@@ -1861,7 +1784,7 @@ summary {
   .form-grid input,
   .form-grid select,
   .form-grid textarea {
-    font-size: 12px;
+    font-size: var(--type-body);
     padding-inline: 10px;
   }
   .footer-top {
@@ -1869,7 +1792,7 @@ summary {
     gap: 25px;
   }
   .footer-contact a {
-    font-size: 10px;
+    font-size: var(--type-small);
   }
   .case-visual {
     padding: 35px;
@@ -1900,7 +1823,7 @@ summary {
     gap: 10px;
   }
   .nav-quote {
-    font-size: 10px;
+    font-size: var(--type-small);
     padding: 10px 12px;
     gap: 8px;
     min-height: 42px;
@@ -1925,57 +1848,40 @@ summary {
   .hero h1 {
     font-size: clamp(46px, 8.9vw, 66px);
     line-height: 1.05;
-    margin-top: 24px;
+    margin-top: 0;
     margin-bottom: 22px;
   }
   .hero h1 em {
     font-size: 1.09em;
     white-space: nowrap;
   }
-  .hero-eyebrow {
-    font-size: 8px;
-  }
   .hero-copy {
     padding-block: 0;
   }
   .hero-copy > p {
-    font-size: 14px;
+    font-size: var(--type-body);
     max-width: 430px;
   }
   .hero .button-row {
-    gap: 18px;
     margin-top: 25px;
+    gap: 12px 20px;
   }
   .hero .button {
     padding: 13px 18px;
     min-height: 48px;
-    font-size: 11px;
+    font-size: var(--type-small);
   }
   .hero .text-link {
-    font-size: 11px;
-  }
-  .hero-note {
-    font-size: 9px;
-    gap: 5px 10px;
-    max-width: 100%;
-    margin-top: 20px;
-  }
-  .hero-note span:not(:first-child):before {
-    margin-right: 10px;
+    font-size: var(--type-small);
   }
   .hero-visual {
-    padding: 20px 20px 17px;
-    max-width: 560px;
     width: 100%;
     margin: auto;
-  }
-  .hero-visual-label {
-    font-size: 9px;
-    margin-bottom: 28px;
+    max-width: 560px;
   }
   .hero-project {
     margin-bottom: 46px;
-    padding-right: 16px;
+    padding-right: 8px;
   }
   .phone-frame {
     width: 25%;
@@ -1988,31 +1894,10 @@ summary {
     height: 26px;
   }
   .hero-caption strong {
-    font-size: 13px;
+    font-size: var(--type-small);
   }
   .hero-caption .eyebrow {
-    font-size: 8px;
-  }
-  .offering-strip {
-    padding: 24px 0;
-  }
-  .offering-strip > .container {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .offering-strip > .container > span {
-    font-size: 17px;
-  }
-  .offering-strip .container > div {
-    width: 100%;
-    justify-content: space-between;
-    gap: 8px;
-    font-size: 9px;
-  }
-  .offering-strip .container > div > span:before {
-    margin-right: 6px;
-    font-size: 8px;
+    font-size: var(--type-small);
   }
   .business-problem {
     grid-template-columns: 1fr;
@@ -2023,7 +1908,7 @@ summary {
     max-width: 460px;
   }
   .problem-intro p {
-    font-size: 13px;
+    font-size: var(--type-body);
     margin-block: 20px 12px;
     max-width: 420px;
   }
@@ -2032,26 +1917,27 @@ summary {
     padding-block: 20px;
   }
   .problem-list h3 {
-    font-size: 15px;
+    font-size: 20px;
   }
   .problem-list p {
-    font-size: 12px;
+    font-size: var(--type-body);
   }
   .section-heading {
-    display: block;
     margin-bottom: 34px;
+    display: block;
   }
   .section-heading h2 {
     font-size: clamp(32px, 6.9vw, 40px);
-    margin-top: 17px;
+    margin-top: 0;
   }
   .section-heading > p {
     margin-top: 22px;
-    max-width: 440px;
-    font-size: 13px;
+    max-width: 700px;
+    font-size: var(--type-body);
+    margin-top: 18px;
   }
   .eyebrow {
-    font-size: 9px;
+    font-size: var(--type-small);
     letter-spacing: 0.13em;
   }
   .benefit-grid {
@@ -2061,32 +1947,28 @@ summary {
     font-size: 21px;
   }
   .benefit-grid p {
-    font-size: 12px;
-  }
-  .benefit-grid .eyebrow {
-    font-size: 8px;
-    letter-spacing: 0.09em;
+    font-size: var(--type-body);
   }
   .benefit-grid svg {
     margin-bottom: 20px;
   }
   .service-grid article {
-    padding: 24px 18px;
+    padding: 28px;
   }
   .service-grid h3 {
-    font-size: 16px;
+    font-size: 20px;
   }
   .service-grid svg {
     margin-bottom: 25px;
   }
   .service-grid p {
-    font-size: 11px;
+    font-size: var(--type-body);
   }
   .service-note {
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
-    font-size: 10px;
+    font-size: var(--type-small);
   }
   .service-note > span {
     align-items: flex-start;
@@ -2094,22 +1976,15 @@ summary {
   .work-preview {
     padding: 24px 17px 18px;
   }
-  .work-preview-caption {
-    font-size: 9px;
-    margin-top: 17px;
-  }
   .work-copy h3 {
     font-size: 39px;
     margin: 16px 0;
   }
   .work-copy p {
-    font-size: 13px;
-  }
-  .work-copy .eyebrow {
-    font-size: 8px;
+    font-size: var(--type-body);
   }
   .feature-tags li {
-    font-size: 9px;
+    font-size: var(--type-small);
   }
   .pricing-grid {
     grid-template-columns: 1fr;
@@ -2124,7 +1999,7 @@ summary {
   }
   .package-description {
     min-height: 0;
-    font-size: 13px;
+    font-size: var(--type-body);
   }
   .package-price {
     font-size: 64px;
@@ -2134,23 +2009,23 @@ summary {
     margin-left: 22px;
   }
   .package-scope {
-    font-size: 12px;
+    font-size: var(--type-body);
     align-items: center;
   }
   .package-scope > span {
-    font-size: 10px;
+    font-size: var(--type-body);
   }
   .package-features {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 14px 10px;
     padding-block: 25px;
   }
   .package-features li {
-    font-size: 10px;
+    font-size: var(--type-body);
   }
   .delivery {
     flex-direction: row;
-    font-size: 10px;
+    font-size: var(--type-small);
     gap: 15px;
   }
   .pricing-notes {
@@ -2159,7 +2034,7 @@ summary {
     margin-top: 20px;
   }
   .pricing-notes p {
-    font-size: 10px;
+    font-size: var(--type-body);
   }
   .addons {
     grid-template-columns: 1fr;
@@ -2172,11 +2047,11 @@ summary {
     margin: 18px 0;
   }
   .addons > div > p {
-    font-size: 12px;
+    font-size: var(--type-body);
     max-width: 420px;
   }
   .addons table {
-    font-size: 12px;
+    font-size: var(--type-small);
   }
   .journey {
     margin: 40px 0 32px;
@@ -2189,13 +2064,13 @@ summary {
     font-size: 24px;
   }
   .journey p {
-    font-size: 12px;
+    font-size: var(--type-body);
   }
   .process-footnote {
     flex-direction: column;
     align-items: flex-start;
     gap: 7px;
-    font-size: 10px;
+    font-size: var(--type-small);
   }
   .why-section {
     grid-template-columns: 1fr;
@@ -2205,7 +2080,7 @@ summary {
     font-size: 40px;
   }
   .why-heading > p {
-    font-size: 13px;
+    font-size: var(--type-body);
     max-width: 480px;
   }
   .studio-signature {
@@ -2216,10 +2091,10 @@ summary {
     gap: 24px;
   }
   .reason-grid h3 {
-    font-size: 15px;
+    font-size: 20px;
   }
   .reason-grid p {
-    font-size: 11px;
+    font-size: var(--type-body);
   }
   .faq-layout {
     grid-template-columns: 1fr;
@@ -2229,23 +2104,23 @@ summary {
     font-size: 40px;
   }
   .faq-layout > div:first-child p {
-    font-size: 13px;
+    font-size: var(--type-body);
     max-width: 420px;
     margin-block: 20px 8px;
   }
   .faq-list summary {
-    font-size: 12px;
     gap: 13px;
     min-height: 68px;
+    font-size: var(--type-body);
   }
   .faq-list p {
-    font-size: 12px;
+    font-size: var(--type-body);
     margin-left: 27px;
     margin-right: 15px;
   }
   .contact-layout {
     grid-template-columns: 1fr;
-    gap: 35px;
+    gap: 40px;
   }
   .contact-copy {
     padding-top: 0;
@@ -2256,7 +2131,7 @@ summary {
     margin: 20px 0 22px;
   }
   .contact-copy > p {
-    font-size: 13px;
+    font-size: var(--type-body);
     max-width: 440px;
   }
   .contact-methods {
@@ -2264,10 +2139,11 @@ summary {
     margin: 24px 0 20px;
   }
   .contact-methods strong {
-    font-size: 13px;
+    font-size: var(--type-body);
+    overflow-wrap: anywhere;
   }
   .contact-copy .contact-small {
-    font-size: 11px;
+    font-size: var(--type-small);
     max-width: 100%;
   }
   .quote-form-wrap {
@@ -2275,24 +2151,25 @@ summary {
   }
   .form-grid {
     gap: 18px 14px;
+    grid-template-columns: 1fr;
   }
   .form-grid input,
   .form-grid select,
   .form-grid textarea {
-    font-size: 16px;
+    font-size: var(--type-body);
     padding: 12px;
   }
   .form-grid label {
-    font-size: 10px;
+    font-size: var(--type-small);
   }
   .form-heading h3 {
     font-size: 25px;
   }
   .form-privacy {
-    font-size: 10px;
+    font-size: var(--type-small);
   }
   .form-note {
-    font-size: 11px;
+    font-size: var(--type-small);
   }
   .form-submit {
     min-height: 49px;
@@ -2301,7 +2178,7 @@ summary {
     padding-top: 42px;
   }
   .footer-top {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 30px 20px;
     padding-bottom: 32px;
   }
@@ -2313,21 +2190,22 @@ summary {
     margin-top: 18px;
   }
   .footer-description {
-    font-size: 10px;
+    font-size: var(--type-body);
   }
   .footer-contact a {
-    font-size: 10px;
+    font-size: var(--type-small);
     gap: 6px;
     overflow-wrap: anywhere;
+    justify-content: flex-start;
   }
   .footer-contact svg {
     width: 12px;
   }
   .footer-contact > span {
-    font-size: 8px;
+    font-size: var(--type-small);
   }
   .footer-top nav a {
-    font-size: 11px;
+    font-size: var(--type-small);
     min-height: 38px;
   }
   .footer-bottom {
@@ -2335,7 +2213,7 @@ summary {
     flex-direction: column;
     gap: 5px;
     padding-block: 20px;
-    font-size: 9px;
+    font-size: var(--type-small);
   }
   .footer-bottom > div {
     justify-content: space-between;
@@ -2352,7 +2230,7 @@ summary {
     display: block;
   }
   .case-intro > p {
-    font-size: 14px;
+    font-size: var(--type-body);
   }
   .case-type {
     margin-top: 25px;
@@ -2376,7 +2254,7 @@ summary {
     font-size: 32px;
   }
   .case-details p {
-    font-size: 13px;
+    font-size: var(--type-body);
   }
   .case-cta {
     align-items: flex-start;
@@ -2397,7 +2275,18 @@ summary {
     font-size: 24px;
   }
   .document-page p {
-    font-size: 13px;
+    font-size: var(--type-body);
+  }
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+  .work-actions .button {
+    flex-basis: 150px;
+  }
+  .footer-top nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 20px;
   }
 }
 @media (max-width: 374px) {
@@ -2417,9 +2306,10 @@ summary {
     gap: 8px;
   }
   .nav-quote {
-    font-size: 9px;
     padding: 9px 10px;
     gap: 4px;
+    font-size: 13px;
+    padding-inline: 8px;
   }
   .nav-quote svg {
     width: 12px;
@@ -2430,9 +2320,6 @@ summary {
   .hero h1 em {
     font-size: 1.03em;
   }
-  .hero-eyebrow {
-    font-size: 7px;
-  }
   .hero .button-row {
     gap: 10px;
   }
@@ -2441,20 +2328,15 @@ summary {
     gap: 10px;
   }
   .hero .text-link {
-    font-size: 10px;
+    font-size: var(--type-small);
     gap: 8px;
-  }
-  .offering-strip .container > div {
-    font-size: 8px;
-  }
-  .offering-strip .container > div > span:before {
-    margin-right: 4px;
   }
   .benefit-grid {
     gap: 24px 18px;
+    grid-template-columns: 1fr;
   }
   .benefit-grid h3 {
-    font-size: 19px;
+    font-size: 20px;
   }
   .service-grid {
     grid-template-columns: 1fr;
@@ -2463,10 +2345,10 @@ summary {
     padding: 25px;
   }
   .service-grid h3 {
-    font-size: 18px;
+    font-size: 20px;
   }
   .service-grid p {
-    font-size: 12px;
+    font-size: var(--type-body);
   }
   .pricing-card {
     padding: 23px;
@@ -2476,13 +2358,13 @@ summary {
     gap: 10px;
   }
   .package-features li {
-    font-size: 11px;
+    font-size: var(--type-body);
   }
   .package-scope {
-    font-size: 11px;
+    font-size: var(--type-body);
   }
   .delivery {
-    font-size: 9px;
+    font-size: var(--type-small);
   }
   .quote-form-wrap {
     padding: 24px 20px;
@@ -2491,10 +2373,10 @@ summary {
     grid-template-columns: 1fr;
   }
   .form-grid label > span {
-    font-size: 10px;
+    font-size: var(--type-small);
   }
   .contact-methods strong {
-    font-size: 12px;
+    font-size: var(--type-body);
   }
   .footer-top {
     grid-template-columns: 1fr;
@@ -2503,7 +2385,7 @@ summary {
     grid-column: auto;
   }
   .footer-contact a {
-    font-size: 12px;
+    font-size: var(--type-small);
     justify-content: flex-start;
     gap: 12px;
   }
@@ -2518,6 +2400,15 @@ summary {
   }
   .case-hero h1 {
     font-size: 51px;
+  }
+  .hero-caption strong {
+    font-size: var(--type-body);
+  }
+  .hero-project-link span {
+    font-size: 13px;
+  }
+  .form-extras label {
+    flex-wrap: wrap;
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -1,5 +1,8 @@
+import { parseSiteOrigin } from "./site-origin.mjs";
+
 export const studio = {
   name: "VRGIL Web Solutions",
+  tagline: "Built for Businesses.",
   email: "adenleung08@gmail.com",
   phone: "+65 8363 5900",
   whatsapp: "6583635900",
@@ -187,20 +190,4 @@ export function whatsappLink(
 ) {
   return `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(message)}`;
 }
-export const siteUrl = (() => {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!raw) return null;
-  try {
-    const url = new URL(raw);
-    if (
-      !["https:", "http:"].includes(url.protocol) ||
-      url.pathname !== "/" ||
-      url.search ||
-      url.hash
-    )
-      return null;
-    return url.origin;
-  } catch {
-    return null;
-  }
-})();
+export const siteUrl = parseSiteOrigin(process.env.NEXT_PUBLIC_SITE_URL);

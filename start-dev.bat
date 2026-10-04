@@ -1,3 +1,3 @@
 @echo off
-cd /d "c:\Users\adenl\OneDrive\Desktop\VRGILWS"
-call "C:\Program Files\nodejs\npm.cmd" run dev
+cd /d "%~dp0"
+call npm run dev

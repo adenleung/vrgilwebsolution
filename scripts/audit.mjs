@@ -117,7 +117,7 @@ try {
     JSON.stringify(scores, null, 2) + "\n",
   );
   const page = await browser.newPage();
-  for (const width of [320, 390, 768, 1440]) {
+  for (const width of [320, 375, 390, 768, 1024, 1440, 1920]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto(`http://127.0.0.1:${port}/portfolio/bloom-hair-place`, {
       waitUntil: "networkidle",

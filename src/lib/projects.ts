@@ -8,6 +8,8 @@ export type Project = {
   features: string[];
   desktop: string;
   mobile: string;
+  desktopAlt: string;
+  mobileAlt: string;
   source: string;
   sourceCommit: string;
   liveUrl: string | null;
@@ -31,6 +33,9 @@ export const projects: Project[] = [
       "WhatsApp enquiries",
       "Location & directions",
     ],
+    desktopAlt:
+      "Bloom Hair Place website showing the salon interior and welcome headline",
+    mobileAlt: "Mobile layout of the Bloom Hair Place website",
     desktop: "/work/bloom-desktop.webp",
     mobile: "/work/bloom-mobile.webp",
     source: "https://github.com/adenleung/BloomHairPlaceSSG",

@@ -12,7 +12,9 @@
     "test:ui": "playwright test --ui",
     "audit:site": "node scripts/audit.mjs",
     "format": "prettier --write src tests scripts playwright.config.ts eslint.config.mjs",
-    "format:check": "prettier --check src tests scripts playwright.config.ts eslint.config.mjs"
+    "format:check": "prettier --check src tests scripts playwright.config.ts eslint.config.mjs",
+    "build:release": "node scripts/check-release.mjs && next build",
+    "check:release": "node scripts/check-release.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
@@ -36,7 +38,7 @@
     "typescript": "^5.6.3"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22.19.0"
   },
   "overrides": {
     "postcss": "$postcss"

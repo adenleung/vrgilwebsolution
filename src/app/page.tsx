@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   CalendarDays,
@@ -98,20 +97,15 @@ const reasons = [
   ],
 ];
 function SectionHeading({
-  label,
   title,
   text,
 }: {
-  label: string;
   title: React.ReactNode;
   text?: string;
 }) {
   return (
     <div className="section-heading">
-      <div>
-        <span className="eyebrow">{label}</span>
-        <h2>{title}</h2>
-      </div>
+      <h2>{title}</h2>
       {text && <p>{text}</p>}
     </div>
   );
@@ -131,9 +125,6 @@ export default function Home() {
           aria-labelledby="hero-heading"
         >
           <div className="hero-copy">
-            <span className="eyebrow hero-eyebrow">
-              <span className="small-rule" /> Independent web studio · Singapore
-            </span>
             <h1 id="hero-heading">
               Your business
               <br />
@@ -152,21 +143,12 @@ export default function Home() {
                 Explore Our Work <ArrowRight size={17} aria-hidden="true" />
               </a>
             </div>
-            <div className="hero-note">
-              <span>Built for your business.</span>
-              <span>From S$599.</span>
-              <span>No technical experience needed.</span>
-            </div>
           </div>
           <div className="hero-visual">
-            <div className="hero-visual-label">
-              <span>Good design. Real businesses.</span>
-              <ArrowDown size={16} aria-hidden="true" />
-            </div>
             <Link
               href={`/portfolio/${project.slug}`}
               className="hero-project"
-              aria-label="Explore the Bloom Hair Place website project"
+              aria-label={`Explore ${project.name} website project`}
             >
               <div className="browser-frame">
                 <div className="browser-toolbar" aria-hidden="true">
@@ -175,13 +157,13 @@ export default function Home() {
                     <i />
                     <i />
                   </div>
-                  <span>Bloom Hair Place</span>
+                  <span>{project.name}</span>
                   <ArrowUpRight size={12} />
                 </div>
                 <Image
                   className="desktop-preview"
                   src={project.desktop}
-                  alt="Bloom Hair Place website showing the salon interior and welcome headline"
+                  alt={project.desktopAlt}
                   width={1440}
                   height={1000}
                   sizes="(max-width: 700px) 92vw, (max-width: 960px) 80vw, 49vw"
@@ -191,7 +173,7 @@ export default function Home() {
               <div className="phone-frame">
                 <Image
                   src={project.mobile}
-                  alt="Mobile layout of the Bloom Hair Place website"
+                  alt={project.mobileAlt}
                   width={390}
                   height={844}
                   sizes="(max-width: 700px) 26vw, 140px"
@@ -200,40 +182,23 @@ export default function Home() {
               </div>
             </Link>
             <div className="hero-caption">
-              <div>
-                <span className="eyebrow">Featured project</span>
-                <strong>Bloom Hair Place</strong>
-              </div>
               <Link
                 href={`/portfolio/${project.slug}`}
-                className="round-link"
-                aria-label="View Bloom Hair Place case study"
+                className="hero-project-link"
               >
-                <ArrowUpRight size={20} aria-hidden="true" />
+                <strong>{project.name}</strong>
+                <span>
+                  Explore Project <ArrowUpRight size={17} aria-hidden="true" />
+                </span>
               </Link>
             </div>
           </div>
         </section>
-        <div className="offering-strip">
-          <div className="container">
-            <span>
-              We build websites.
-              <br />
-              <strong>You focus on your business.</strong>
-            </span>
-            <div>
-              <span>Custom design</span>
-              <span>Mobile responsive</span>
-              <span>Clear project scope</span>
-            </div>
-          </div>
-        </div>
         <section
           className="section container business-problem"
           aria-labelledby="problem-heading"
         >
           <div className="problem-intro">
-            <span className="eyebrow">01 / A familiar challenge</span>
             <h2 id="problem-heading">
               You have a business to run.
               <br />
@@ -270,9 +235,8 @@ export default function Home() {
                 "“What about after launch?”",
                 "We agree the handover and discuss any support you need upfront.",
               ],
-            ].map(([title, text], i) => (
+            ].map(([title, text]) => (
               <div key={title}>
-                <span className="item-number">0{i + 1}</span>
                 <div>
                   <h3>{title}</h3>
                   <p>{text}</p>
@@ -284,7 +248,6 @@ export default function Home() {
         <section className="benefits-section section">
           <div className="container">
             <SectionHeading
-              label="02 / More than a web address"
               title={
                 <>
                   A home for your business.
@@ -297,7 +260,6 @@ export default function Home() {
               {benefits.map(({ title, label, description, icon: Icon }) => (
                 <article key={label}>
                   <Icon size={26} strokeWidth={1.4} aria-hidden="true" />
-                  <span className="eyebrow">{label}</span>
                   <h3>{title}</h3>
                   <p>{description}</p>
                 </article>
@@ -307,7 +269,6 @@ export default function Home() {
         </section>
         <section className="section container" id="services">
           <SectionHeading
-            label="03 / What we do"
             title={
               <>
                 The right website.
@@ -343,7 +304,6 @@ export default function Home() {
         <section className="work-section section" id="work">
           <div className="container">
             <SectionHeading
-              label="04 / Selected work"
               title={
                 <>
                   Every business has a story.
@@ -357,7 +317,7 @@ export default function Home() {
               <Link
                 href={`/portfolio/${project.slug}`}
                 className="work-preview"
-                aria-label="View the Bloom Hair Place project"
+                aria-label={`Explore ${project.name} project`}
               >
                 <div className="browser-frame">
                   <div className="browser-toolbar" aria-hidden="true">
@@ -366,23 +326,20 @@ export default function Home() {
                       <i />
                       <i />
                     </div>
-                    <span>Bloom Hair Place</span>
+                    <span>{project.name}</span>
                     <Globe2 size={13} />
                   </div>
                   <Image
                     src={project.desktop}
-                    alt="Desktop preview of the Bloom Hair Place salon website"
+                    alt={project.desktopAlt}
                     width={1440}
                     height={1000}
                     sizes="(max-width: 960px) 90vw, 58vw"
                   />
                 </div>
-                <span className="work-preview-caption">
-                  A warm welcome, on every screen.
-                </span>
               </Link>
               <div className="work-copy">
-                <span className="eyebrow">{project.industry}</span>
+                <p className="project-industry">{project.industry}</p>
                 <h3>{project.name}</h3>
                 <p>{project.summary}</p>
                 <ul className="feature-tags">
@@ -390,30 +347,32 @@ export default function Home() {
                     <li key={feature}>{feature}</li>
                   ))}
                 </ul>
-                <Link
-                  className="button button-light"
-                  href={`/portfolio/${project.slug}`}
-                >
-                  Explore the project{" "}
-                  <ArrowUpRight size={17} aria-hidden="true" />
-                </Link>
-                {project.liveUrl && (
-                  <a
-                    className="text-link"
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <div className="work-actions">
+                  <Link
+                    className="button button-light"
+                    href={`/portfolio/${project.slug}`}
                   >
-                    Visit website <ArrowUpRight size={16} aria-hidden="true" />
-                  </a>
-                )}
+                    Explore Project{" "}
+                    <ArrowUpRight size={17} aria-hidden="true" />
+                  </Link>
+                  {project.liveUrl && (
+                    <a
+                      className="button button-work-outline"
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Visit Website{" "}
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
+                  )}
+                </div>
               </div>
             </article>
           </div>
         </section>
         <section className="section container" id="pricing">
           <SectionHeading
-            label="05 / Clear pricing"
             title={
               <>
                 A solid foundation.
@@ -429,10 +388,6 @@ export default function Home() {
                 key={p.id}
                 className={`pricing-card${i === 1 ? " pricing-featured" : ""}`}
               >
-                <div className="pricing-card-top">
-                  <span className="eyebrow">{p.label}</span>
-                  <span className="package-index">0{i + 1}</span>
-                </div>
                 <h3>{p.name}</h3>
                 <p className="package-description">{p.description}</p>
                 <div className="package-price">
@@ -446,7 +401,7 @@ export default function Home() {
                 </div>
                 <a
                   className={`button${i === 0 ? " button-outline" : ""}`}
-                  href={`?package=${p.id}#contact`}
+                  href="#contact"
                   data-package={p.id}
                 >
                   Choose {p.name} <ArrowUpRight size={17} aria-hidden="true" />
@@ -490,7 +445,6 @@ export default function Home() {
           </div>
           <div className="addons">
             <div>
-              <span className="eyebrow">Tailor your project</span>
               <h3>
                 A little extra,
                 <br />
@@ -525,7 +479,6 @@ export default function Home() {
         <section className="process-section section" id="process">
           <div className="container">
             <SectionHeading
-              label="06 / From first hello to launch"
               title={
                 <>
                   You’ll know what’s next.
@@ -540,7 +493,6 @@ export default function Home() {
                 <li className="journey-step" key={step.title}>
                   <div className="journey-node">0{i + 1}</div>
                   <div className="journey-content">
-                    <span className="eyebrow">Step 0{i + 1}</span>
                     <h3>{step.title}</h3>
                     <p>{step.description}</p>
                     <div className="journey-milestone">
@@ -565,7 +517,6 @@ export default function Home() {
         </section>
         <section className="section container why-section">
           <div className="why-heading">
-            <span className="eyebrow">07 / The studio behind your site</span>
             <h2>
               Small studio.
               <br />
@@ -593,7 +544,6 @@ export default function Home() {
         <section className="faq-section section">
           <div className="container faq-layout">
             <div>
-              <span className="eyebrow">08 / A few useful answers</span>
               <h2>
                 Before you
                 <br />
@@ -613,12 +563,9 @@ export default function Home() {
               </a>
             </div>
             <div className="faq-list">
-              {faqs.map(([question, answer], i) => (
+              {faqs.map(([question, answer]) => (
                 <details key={question}>
                   <summary>
-                    <span className="faq-number">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
                     <span>{question}</span>
                     <span className="faq-plus" aria-hidden="true">
                       +
@@ -633,7 +580,6 @@ export default function Home() {
         <section className="contact-section section" id="contact">
           <div className="container contact-layout">
             <div className="contact-copy">
-              <span className="eyebrow">09 / Your business, online</span>
               <h2>
                 Let’s build something that works <em>for your business.</em>
               </h2>

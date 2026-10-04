@@ -75,7 +75,7 @@ export default async function Portfolio({ params }: Props) {
             </div>
             <Image
               src={project.desktop}
-              alt={`${project.name} desktop website, with salon imagery and service information`}
+              alt={project.desktopAlt}
               width={1440}
               height={1000}
               priority
@@ -85,7 +85,7 @@ export default async function Portfolio({ params }: Props) {
           <div className="case-phone">
             <Image
               src={project.mobile}
-              alt={`${project.name} mobile website layout`}
+              alt={project.mobileAlt}
               width={390}
               height={844}
               sizes="(max-width: 700px) 35vw, 18vw"

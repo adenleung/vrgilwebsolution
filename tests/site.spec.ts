@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { mkdir } from "node:fs/promises";
+import { parseSiteOrigin } from "../src/lib/site-origin.mjs";
 
 // This execution host isolates Chromium networking. Opt-in bridge to the LOCAL
 // test server; ordinary machines use normal browser networking.
@@ -56,7 +57,7 @@ test("homepage presents business content, accurate prices and genuine work immed
   }
 });
 
-for (const width of [320, 375, 390, 768, 1024, 1440])
+for (const width of [320, 375, 390, 768, 1024, 1440, 1920])
   test(`usable layout, anchors and images at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
@@ -65,14 +66,14 @@ for (const width of [320, 375, 390, 768, 1024, 1440])
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(width);
     for (const id of ["services", "work", "pricing", "process", "contact"]) {
-      if (width < 960)
+      if (width < 1151)
         await page
           .getByRole("button", { name: "Open menu", exact: true })
           .click();
       await page.locator(`#main-navigation a[href="#${id}"]`).click();
       await expect(page).toHaveURL(new RegExp(`#${id}$`));
       await expect(page.locator("#" + id)).toBeVisible();
-      if (width < 960)
+      if (width < 1151)
         await expect(
           page.getByRole("button", { name: "Open menu", exact: true }),
         ).toHaveAttribute("aria-expanded", "false");
@@ -181,6 +182,161 @@ test("quote validation and explicit WhatsApp/email draft handoff retain the enqu
   expect(errors).toEqual([]);
 });
 
+test("package choices retain every typed field and extra before and after review", async ({
+  page,
+}) => {
+  const navigations: string[] = [];
+  await page.goto("/");
+  page.on("request", (request) => {
+    if (request.isNavigationRequest()) navigations.push(request.url());
+  });
+  await page.locator("#name").fill("Synthetic QA & Co");
+  await page.locator("#business").fill("Synthetic café");
+  await page.locator("#email").fill("qa@example.com");
+  await page.locator("#phone").fill("+65 8000 0000");
+  await page.locator("#message").fill("Synthetic private brief\nSecond line");
+  await page.locator(".form-extras summary").click();
+  await page.getByLabel("Copywriting", { exact: false }).check();
+  async function expectDraft(id: string) {
+    await expect(page.locator("#name")).toHaveValue("Synthetic QA & Co");
+    await expect(page.locator("#business")).toHaveValue("Synthetic café");
+    await expect(page.locator("#email")).toHaveValue("qa@example.com");
+    await expect(page.locator("#phone")).toHaveValue("+65 8000 0000");
+    await expect(page.locator("#message")).toHaveValue(
+      "Synthetic private brief\nSecond line",
+    );
+    await expect(
+      page.getByLabel("Copywriting", { exact: false }),
+    ).toBeChecked();
+    await expect(page.locator("#package")).toHaveValue(id);
+    expect(new URL(page.url()).search).toBe("");
+  }
+  await page
+    .getByRole("link", { name: "Choose Landing Page", exact: true })
+    .click();
+  await expectDraft("landing");
+  await page.getByRole("button", { name: "Review enquiry" }).click();
+  await page.getByRole("button", { name: "Edit details" }).click();
+  await page
+    .getByRole("link", { name: "Choose Business Website", exact: true })
+    .click();
+  await expectDraft("business");
+  await page.getByRole("button", { name: "Review enquiry" }).click();
+  await page
+    .getByRole("link", { name: "Choose Landing Page", exact: true })
+    .click();
+  await expectDraft("landing");
+  await expect(page.locator(".enquiry-review")).toHaveCount(0);
+  expect(navigations).toEqual([]);
+});
+
+test("without JavaScript the enquiry is inert and sends no private data or requests", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    reducedMotion: "reduce",
+  });
+  const page = await context.newPage();
+  const requests: { url: string; body: string | null }[] = [];
+  page.on("request", (request) =>
+    requests.push({ url: request.url(), body: request.postData() }),
+  );
+  await page.goto("http://127.0.0.1:3000/", { waitUntil: "networkidle" });
+  for (const id of ["name", "business", "email", "phone", "package", "message"])
+    await expect(page.locator(`#${id}`)).toBeDisabled();
+  await expect(
+    page.getByRole("button", { name: "Review enquiry" }),
+  ).toBeDisabled();
+  await expect(page.locator(".quote-form")).toHaveAttribute("method", "post");
+  await expect(page.locator('noscript a[href^="mailto:"]')).toBeVisible();
+  await expect(
+    page.locator('noscript a[href^="https://wa.me/"]'),
+  ).toBeVisible();
+  const count = requests.length;
+  await page
+    .getByRole("button", { name: "Review enquiry" })
+    .click({ force: true });
+  expect(requests.length).toBe(count);
+  expect(new URL(page.url()).search).toBe("");
+  expect(
+    requests.every(
+      (request) =>
+        request.body === null &&
+        !/[?&](name|business|email|phone|message)=/.test(request.url),
+    ),
+  ).toBe(true);
+  await context.close();
+});
+
+test("review and optional extras pass accessibility checks", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.locator("#name").fill("Synthetic QA");
+  await page.locator("#email").fill("qa@example.com");
+  await page.locator("#message").fill("Synthetic project");
+  await page.locator(".form-extras summary").click();
+  expect(
+    (
+      await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+        .withRules(["label-content-name-mismatch"])
+        .analyze()
+    ).violations,
+  ).toEqual([]);
+  await page.getByRole("button", { name: "Review enquiry" }).click();
+  expect(
+    (
+      await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+        .withRules(["label-content-name-mismatch"])
+        .analyze()
+    ).violations,
+  ).toEqual([]);
+});
+
+test("release rejects missing or invalid origins, and preview metadata is safe", async ({
+  page,
+  request,
+}) => {
+  expect(parseSiteOrigin(undefined)).toBeNull();
+  for (const raw of [
+    undefined,
+    "not-a-url",
+    "http://example.com",
+    "https://localhost",
+    "https://release-fixture.invalid",
+    "https://example.com/path",
+    "https://user:pass@example.com",
+    "https://example.com/?email=private",
+  ])
+    expect(() => parseSiteOrigin(raw, { release: true })).toThrow();
+  expect(parseSiteOrigin("https://example.com", { release: true })).toBe(
+    "https://example.com",
+  );
+  await page.goto("/");
+  const canonical = page.locator('link[rel="canonical"]');
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  const robots = await (await request.get("/robots.txt")).text();
+  if (await canonical.count()) {
+    const origin = new URL((await canonical.getAttribute("href"))!).origin;
+    expect(sitemap.match(/<loc>/g)).toHaveLength(4);
+    expect(robots).toContain(`Sitemap: ${origin}/sitemap.xml`);
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      `${origin}/api/og`,
+    );
+  } else {
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      /noindex/,
+    );
+    expect(sitemap).not.toContain("<loc>");
+    expect(robots).toContain("Disallow: /");
+  }
+});
+
 test("WhatsApp links always identify the recipient and local links resolve", async ({
   page,
   request,
@@ -227,7 +383,8 @@ for (const width of [390, 1440])
     ]) {
       await page.goto(path);
       const result = await new AxeBuilder({ page })
-        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+        .withRules(["label-content-name-mismatch"])
         .analyze();
       expect(
         result.violations,

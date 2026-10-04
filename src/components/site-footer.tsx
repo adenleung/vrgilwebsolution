@@ -7,14 +7,14 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="container footer-top">
         <div>
-          <Link href="/#home" aria-label="VRGIL home" className="brand-link">
+          <Link
+            href="/#home"
+            aria-label="VRGIL Web Solutions home"
+            className="brand-link"
+          >
             <Brand light />
           </Link>
-          <p>
-            We build websites.
-            <br />
-            You focus on your business.
-          </p>
+          <p>{studio.tagline}</p>
           <span className="footer-description">
             An independent web studio in Singapore.
           </span>

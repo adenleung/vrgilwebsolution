@@ -14,7 +14,6 @@ export default function Privacy() {
       </a>
       <SiteHeader />
       <main id="main" className="container document-page">
-        <span className="eyebrow">VRGIL / Website information</span>
         <h1>Privacy information</h1>
         <p>
           This page explains how this website’s enquiry tools work. VRGIL Web
@@ -28,6 +27,11 @@ export default function Privacy() {
           description. These entries remain in your current browser page. The
           website does not submit them to a database or email service, and it
           does not save them in browser storage.
+        </p>
+        <p>
+          The review form becomes editable only when JavaScript is ready. If
+          JavaScript is unavailable, use the direct email or WhatsApp links.
+          Private enquiry fields are never placed in this website’s address.
         </p>
         <h2>Choosing email or WhatsApp</h2>
         <p>
@@ -51,11 +55,6 @@ export default function Privacy() {
           information through the enquiry tools. For questions about your
           enquiry or requests concerning information you have sent, email{" "}
           <a href={`mailto:${studio.email}`}>{studio.email}</a>.
-        </p>
-        <p>
-          Hosting-specific details should be checked against the provider
-          selected for this website. Project-specific confidentiality and
-          handling arrangements are agreed separately.
         </p>
       </main>
       <SiteFooter />

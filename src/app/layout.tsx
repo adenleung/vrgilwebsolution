@@ -40,7 +40,7 @@ export const metadata: Metadata = {
               url: "/api/og",
               width: 1200,
               height: 630,
-              alt: "VRGIL Web Solutions — We build websites. You focus on your business.",
+              alt: "VRGIL Web Solutions — Built for Businesses.",
             },
           ],
         }
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     description: studio.description,
     ...(siteUrl ? { images: ["/api/og"] } : {}),
   },
-  robots: { index: true, follow: true },
+  robots: { index: !!siteUrl, follow: true },
   icons: { icon: "/vrgil-logo.png" },
 };
 
