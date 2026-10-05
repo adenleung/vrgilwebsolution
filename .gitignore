@@ -4,3 +4,8 @@ dist/
 .env*
 *.log
 
+!.env.example
+*.tsbuildinfo
+test-results/
+playwright-report/
+qa/
