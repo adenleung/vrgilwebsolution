@@ -375,41 +375,52 @@ export default function Home() {
           <SectionHeading
             title={
               <>
-                A solid foundation.
+                Choose the website
                 <br />
-                <em>Without the guesswork.</em>
+                your business needs.
               </>
             }
-            text="Choose the starting point that fits your business. We confirm the final scope and quotation before work begins."
           />
+          <p className="pricing-promise">
+            Start simple. Grow when you’re ready.
+          </p>
+          <p className="pricing-intro">
+            Clear scope, transparent pricing, and a website built around what
+            your business actually needs.
+          </p>
           <div className="pricing-grid">
             {packages.map((p, i) => (
               <article
                 key={p.id}
                 className={`pricing-card${i === 1 ? " pricing-featured" : ""}`}
               >
+                <p className="package-identity">{p.label}</p>
                 <h3>{p.name}</h3>
+                <p className="package-pitch">{p.pitch}</p>
                 <p className="package-description">{p.description}</p>
                 <div className="package-price">
-                  <span>S$</span>
-                  {p.price}
+                  <span className="package-amount">
+                    <span>S$</span>
+                    {p.price}
+                  </span>
                   <small>
                     starting price
                     <br />
                     one-time project
                   </small>
                 </div>
-                <a
-                  className={`button${i === 0 ? " button-outline" : ""}`}
-                  href="#contact"
-                  data-package={p.id}
-                >
-                  Choose {p.name} <ArrowUpRight size={17} aria-hidden="true" />
-                </a>
                 <div className="package-scope">
                   <strong>{p.pages}</strong>
-                  <span>{p.revisions}</span>
+                  <span>{p.structure}</span>
+                  <p>{p.journey}</p>
                 </div>
+                <div className="package-best-for">
+                  <h4>Best for</h4>
+                  <p>{p.bestFor}</p>
+                </div>
+                <h4 className="package-includes">
+                  Included with every website
+                </h4>
                 <ul className="package-features">
                   {p.features.map((feature) => (
                     <li key={feature}>
@@ -418,23 +429,42 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <details className="package-examples">
-                  <summary>
-                    Typical {i === 0 ? "page sections" : "pages"} <span>+</span>
-                  </summary>
-                  <p>{p.examples}</p>
-                </details>
-                <div className="delivery">
-                  <span>Estimated delivery</span>
-                  <strong>{p.delivery}</strong>
-                </div>
+                <dl className="package-project">
+                  <div>
+                    <dt>Revisions</dt>
+                    <dd>{p.revisions}</dd>
+                  </div>
+                  <div>
+                    <dt>Estimated delivery</dt>
+                    <dd>{p.delivery}</dd>
+                  </div>
+                </dl>
+                <a
+                  className={`button${i === 0 ? " button-outline" : ""}`}
+                  href="#contact"
+                  data-package={p.id}
+                >
+                  Choose {p.name} <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
               </article>
             ))}
           </div>
+          <div className="package-guidance">
+            <h3>Not sure which one fits?</h3>
+            <div>
+              {packages.map((p) => (
+                <p key={p.id}>{p.guidance}</p>
+              ))}
+            </div>
+            <a className="text-link" href="#contact">
+              Get a recommendation <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+          </div>
           <div className="pricing-notes">
             <p>
-              Delivery estimates begin once the required client materials and
-              approvals are received. Custom work is quoted individually.
+              Estimated from the point that the required content, project scope
+              and deposit have been received. Custom work is quoted
+              individually.
             </p>
             <p>
               Domain registration, hosting, third-party subscriptions and
@@ -452,7 +482,8 @@ export default function Home() {
               </h3>
               <p>
                 Optional additions, agreed before we build. All prices below are
-                starting prices.
+                starting prices. An additional standalone page expands the
+                standard package scope, including a one-page Landing Page.
               </p>
             </div>
             <table>

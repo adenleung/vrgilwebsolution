@@ -2,27 +2,31 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { mkdir } from "node:fs/promises";
 import { parseSiteOrigin } from "../src/lib/site-origin.mjs";
+import { packages } from "../src/lib/site-data";
 
 // This execution host isolates Chromium networking. Opt-in bridge to the LOCAL
 // test server; ordinary machines use normal browser networking.
 test.beforeEach(async ({ page }) => {
   if (process.env.BROWSER_FETCH_BRIDGE === "1")
-    await page.route("http://127.0.0.1:3000/**", async (route) => {
-      const req = route.request();
-      const res = await fetch(req.url(), {
-        method: req.method(),
-        headers: req.headers(),
-        body: req.postData() || undefined,
-      });
-      const headers = Object.fromEntries(res.headers);
-      delete headers["content-encoding"];
-      delete headers["content-length"];
-      await route.fulfill({
-        status: res.status,
-        headers,
-        body: Buffer.from(await res.arrayBuffer()),
-      });
-    });
+    await page.route(
+      `http://127.0.0.1:${process.env.PLAYWRIGHT_PORT || "3000"}/**`,
+      async (route) => {
+        const req = route.request();
+        const res = await fetch(req.url(), {
+          method: req.method(),
+          headers: req.headers(),
+          body: req.postData() || undefined,
+        });
+        const headers = Object.fromEntries(res.headers);
+        delete headers["content-encoding"];
+        delete headers["content-length"];
+        await route.fulfill({
+          status: res.status,
+          headers,
+          body: Buffer.from(await res.arrayBuffer()),
+        });
+      },
+    );
 });
 
 test("homepage presents business content, accurate prices and genuine work immediately", async ({
@@ -242,7 +246,10 @@ test("without JavaScript the enquiry is inert and sends no private data or reque
   page.on("request", (request) =>
     requests.push({ url: request.url(), body: request.postData() }),
   );
-  await page.goto("http://127.0.0.1:3000/", { waitUntil: "networkidle" });
+  await page.goto(
+    `http://127.0.0.1:${process.env.PLAYWRIGHT_PORT || "3000"}/`,
+    { waitUntil: "networkidle" },
+  );
   for (const id of ["name", "business", "email", "phone", "package", "message"])
     await expect(page.locator(`#${id}`)).toBeDisabled();
   await expect(
@@ -411,18 +418,21 @@ test("reduced motion and JavaScript-free content remain usable", async ({
   const context = await browser.newContext({ javaScriptEnabled: false });
   const plain = await context.newPage();
   if (process.env.BROWSER_FETCH_BRIDGE === "1")
-    await plain.route("http://127.0.0.1:3000/**", async (route) => {
-      const r = await fetch(route.request().url());
-      const headers = Object.fromEntries(r.headers);
-      delete headers["content-encoding"];
-      delete headers["content-length"];
-      await route.fulfill({
-        status: r.status,
-        headers,
-        body: Buffer.from(await r.arrayBuffer()),
-      });
-    });
-  await plain.goto("http://127.0.0.1:3000");
+    await plain.route(
+      `http://127.0.0.1:${process.env.PLAYWRIGHT_PORT || "3000"}/**`,
+      async (route) => {
+        const r = await fetch(route.request().url());
+        const headers = Object.fromEntries(r.headers);
+        delete headers["content-encoding"];
+        delete headers["content-length"];
+        await route.fulfill({
+          status: r.status,
+          headers,
+          body: Buffer.from(await r.arrayBuffer()),
+        });
+      },
+    );
+  await plain.goto(`http://127.0.0.1:${process.env.PLAYWRIGHT_PORT || "3000"}`);
   await expect(plain.locator("h1")).toContainText("better website.");
   await expect(plain.locator(".journey-step")).toHaveCount(5);
   await expect(
@@ -435,3 +445,56 @@ test("reduced motion and JavaScript-free content remain usable", async ({
   );
   await context.close();
 });
+
+for (const width of [320, 375, 390, 768, 1024, 1440, 1920]) {
+  test(`pricing scope and layout at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/#pricing");
+    await page.evaluate(() => document.fonts.ready);
+    for (const [index, item] of packages.entries()) {
+      const card = page.locator(".pricing-card").nth(index);
+      await expect(card.locator(".package-identity")).toHaveText(item.label);
+      await expect(card.locator(".package-pitch")).toHaveText(item.pitch);
+      await expect(card.locator(".package-price")).toContainText(
+        String(item.price),
+      );
+      await expect(card.locator(".package-scope strong")).toHaveText(
+        item.pages,
+      );
+      await expect(card.locator(".package-scope > span")).toHaveText(
+        item.structure,
+      );
+      await expect(card.locator(".package-best-for")).toContainText(
+        item.bestFor,
+      );
+      await expect(card.locator(".package-project")).toContainText(
+        item.revisions,
+      );
+      await expect(card.locator(".package-project")).toContainText(
+        item.delivery,
+      );
+      expect(
+        await card.evaluate((el) => el.scrollWidth <= el.clientWidth),
+      ).toBeTruthy();
+    }
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(width);
+    if (width < 768) {
+      const stacked = await page.locator(".pricing-grid").evaluate((grid) => {
+        const [first, second] = Array.from(grid.children).map((card) =>
+          card.getBoundingClientRect(),
+        );
+        return second.top >= first.bottom;
+      });
+      expect(stacked).toBeTruthy();
+    }
+    await page
+      .locator("#pricing")
+      .screenshot({ path: `qa/pricing-${width}.png` });
+    await mkdir("qa/pricing-pitch/after", { recursive: true });
+    await page
+      .locator("#pricing")
+      .screenshot({ path: `qa/pricing-pitch/after/pricing-${width}.png` });
+  });
+}

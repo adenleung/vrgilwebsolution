@@ -53,7 +53,9 @@ export const metadata: Metadata = {
     ...(siteUrl ? { images: ["/api/og"] } : {}),
   },
   robots: { index: !!siteUrl, follow: true },
-  icons: { icon: "/vrgil-logo.png" },
+  icons: {
+    icon: { url: "/vrgil-favicon.png", type: "image/png", sizes: "64x64" },
+  },
 };
 
 export default function RootLayout({

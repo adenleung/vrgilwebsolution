@@ -22,10 +22,17 @@ export const packages = [
     id: "landing",
     name: "Landing Page",
     price: 599,
-    label: "A focused first step",
-    description:
-      "One thoughtfully designed page to introduce your business and make it easy to get in touch.",
-    pages: "1 custom page",
+    label: "Start simple",
+    pitch: "One focused page.",
+    description: "Everything your customer needs in one place.",
+    pages: "1 scrolling page",
+    structure: "Up to 6 key sections",
+    journey:
+      "One page. One clear customer journey built around your main action.",
+    bestFor:
+      "New businesses, freelancers, restaurants and simple service businesses.",
+    guidance:
+      "Choose a Landing Page if you mainly need one professional page that explains your business and makes it easy for customers to contact you.",
     revisions: "1 revision round",
     delivery: "5–7 business days",
     examples:
@@ -43,10 +50,18 @@ export const packages = [
     id: "business",
     name: "Business Website",
     price: 999,
-    label: "Room to tell your story",
+    label: "Built to grow",
+    pitch: "More room for your business.",
     description:
-      "A complete website for businesses that need more space for their services, story and work.",
-    pages: "Up to 5 pages",
+      "More pages, more services, and more ways for customers to explore what you offer.",
+    pages: "Up to 5 separate pages",
+    structure: "Full website navigation",
+    journey:
+      "Dedicated pages for your business, services, work and contact information.",
+    bestFor:
+      "SMEs, salons, clinics, contractors and businesses with multiple services.",
+    guidance:
+      "Choose a Business Website if you have multiple services, more content to present, or want separate pages for areas such as About, Services, Gallery and Contact.",
     revisions: "2 revision rounds",
     delivery: "7–14 business days",
     examples: "Home, about, services, portfolio or gallery, and contact.",
@@ -61,7 +76,7 @@ export const packages = [
   },
 ] as const;
 export const addOns = [
-  { name: "Additional page", price: 100 },
+  { name: "Additional standalone page", price: 100 },
   { name: "Logo design", price: 100 },
   { name: "Copywriting", price: 100 },
   { name: "Booking integration", price: 200 },

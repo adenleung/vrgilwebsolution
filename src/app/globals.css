@@ -648,16 +648,16 @@ summary {
   margin-bottom: 30px;
 }
 .package-scope {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
+  display: grid;
+  gap: 8px;
   border-block: 1px solid var(--line);
   padding: 18px 0;
   font-size: var(--type-body);
 }
 .package-scope strong {
   font-weight: 600;
+  font-size: clamp(24px, 2.3vw, 30px);
+  line-height: 1.25;
 }
 .package-scope > span {
   color: var(--muted);
@@ -2425,5 +2425,198 @@ summary {
     background: var(--green);
     color: white;
     border-color: var(--green);
+  }
+}
+
+/* Pricing: package identity, pitch and scope lead the comparison. */
+#pricing .section-heading {
+  margin-bottom: 18px;
+}
+.pricing-promise {
+  font-size: 18px;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+.pricing-intro {
+  font-size: 16px;
+  max-width: 640px;
+  margin-bottom: 36px;
+}
+.package-identity {
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--green);
+}
+#pricing .pricing-card h3 {
+  font-size: clamp(30px, 2.6vw, 38px);
+  margin: 12px 0 18px;
+}
+.package-pitch {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--green-dark);
+  margin-bottom: 10px;
+}
+#pricing .package-description {
+  font-size: 16px;
+  line-height: 1.65;
+  min-height: 3.3em;
+}
+#pricing .package-scope {
+  padding: 0 0 0 18px;
+  border-block: 0;
+  border-left: 2px solid #b0c3b0;
+  gap: 10px;
+}
+#pricing .package-scope strong {
+  font-size: clamp(28px, 2.5vw, 34px);
+  color: var(--green-dark);
+  letter-spacing: -0.035em;
+}
+#pricing .package-scope > span {
+  font-size: 16px;
+  color: var(--green);
+  font-weight: 600;
+}
+.package-scope p,
+.package-best-for p {
+  font-size: 16px;
+  line-height: 1.65;
+}
+.package-best-for {
+  padding-block: 28px;
+}
+#pricing h4 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.package-includes {
+  padding-top: 0;
+  border-top: 0;
+}
+#pricing .package-includes {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 500;
+}
+#pricing .package-features {
+  padding-block: 10px 22px;
+}
+#pricing .package-features li {
+  font-size: 15px;
+  color: var(--muted);
+}
+#pricing .package-price small,
+#pricing .pricing-notes p {
+  font-size: 14px;
+}
+#pricing .package-price {
+  flex-wrap: wrap;
+  row-gap: 12px;
+  margin-block: 28px 34px;
+  column-gap: 20px;
+}
+#pricing .package-price > .package-amount {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  font-size: clamp(64px, 5.4vw, 78px);
+  margin: 0;
+  letter-spacing: -0.06em;
+}
+.package-amount > span {
+  font-size: 28px;
+  margin-right: 7px;
+  letter-spacing: -0.035em;
+}
+#pricing .package-price small {
+  margin-left: 0;
+}
+.package-project {
+  border-top: 1px solid var(--line);
+  padding-block: 20px;
+  margin-top: auto;
+  display: grid;
+  gap: 12px;
+}
+.package-project > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.package-project dt {
+  color: var(--muted);
+}
+.package-project dd {
+  font-weight: 600;
+  margin: 0;
+}
+#pricing .pricing-card > .button {
+  margin: 8px 0 0;
+  min-height: 48px;
+  font-size: 16px;
+  padding-inline: 12px;
+  gap: 8px;
+}
+.package-guidance {
+  margin-top: 28px;
+  padding: 26px 0;
+  border-block: 0;
+}
+.package-guidance h3 {
+  font-size: 26px;
+  margin-bottom: 16px;
+}
+.package-guidance > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.package-guidance p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+.package-guidance > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  min-height: 44px;
+  color: var(--green);
+}
+@media (max-width: 767px) {
+  .package-guidance > div {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  #pricing .package-price small {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+  #pricing .package-pitch {
+    font-size: 28px;
+  }
+  #pricing .package-description {
+    min-height: 0;
+  }
+  #pricing .pricing-card > .button {
+    font-size: 15px;
+    letter-spacing: -0.02em;
+  }
+}
+@media (max-width: 900px) {
+  #pricing .pricing-grid {
+    grid-template-columns: 1fr;
   }
 }
